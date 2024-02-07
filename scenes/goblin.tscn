@@ -1,0 +1,112 @@
+[gd_scene load_steps=18 format=3 uid="uid://ctt1csbmfqnbs"]
+
+[ext_resource type="Texture2D" uid="uid://b2pb0bmoy46df" path="res://assets/enemies/goblin/tile044.png" id="1_h361o"]
+[ext_resource type="Texture2D" uid="uid://e0nj6e2t71tr" path="res://assets/enemies/goblin/idle_0.png" id="1_pfjt4"]
+[ext_resource type="Script" path="res://scenes/goblin.gd" id="1_ssctx"]
+[ext_resource type="Texture2D" uid="uid://dxq8ppcqe7ams" path="res://assets/enemies/goblin/tile045.png" id="2_efwv7"]
+[ext_resource type="Texture2D" uid="uid://luj85iidkoki" path="res://assets/enemies/goblin/tile046.png" id="3_yn2fp"]
+[ext_resource type="Texture2D" uid="uid://bqlt2fwxq058o" path="res://assets/enemies/goblin/tile047.png" id="4_rfmea"]
+[ext_resource type="Texture2D" uid="uid://dfba0r4n450wi" path="res://assets/enemies/goblin/tile048.png" id="5_bt2em"]
+[ext_resource type="Texture2D" uid="uid://cg5vi6uxxyf3u" path="res://assets/enemies/goblin/idle_1.png" id="7_xjhbl"]
+[ext_resource type="Texture2D" uid="uid://djrt2yc3cokq8" path="res://assets/enemies/goblin/idle_2.png" id="8_d4fqi"]
+[ext_resource type="Texture2D" uid="uid://dnyyekfibk4pc" path="res://assets/enemies/goblin/tile011.png" id="9_ex7ya"]
+[ext_resource type="Texture2D" uid="uid://beqpmpokxhdw0" path="res://assets/enemies/goblin/tile012.png" id="10_kuyvn"]
+[ext_resource type="Texture2D" uid="uid://dhg7a0ql4qa42" path="res://assets/enemies/goblin/tile013.png" id="11_txtrs"]
+[ext_resource type="Texture2D" uid="uid://cpkws24csrihw" path="res://assets/enemies/goblin/tile015.png" id="13_lkief"]
+[ext_resource type="Texture2D" uid="uid://chijjqqv67c5t" path="res://assets/enemies/goblin/tile016.png" id="14_cyhoe"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2w3fg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_h361o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_efwv7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yn2fp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rfmea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bt2em")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pfjt4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_xjhbl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_pfjt4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_d4fqi")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_ex7ya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_kuyvn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_txtrs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_lkief")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_cyhoe")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o010l"]
+size = Vector2(11.3333, 15.3333)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obgar"]
+size = Vector2(34, 47)
+
+[node name="Goblin" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_ssctx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3, -1)
+sprite_frames = SubResource("SpriteFrames_2w3fg")
+animation = &"dead"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -0.999998)
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_o010l")
+
+[node name="EntranceTimer" type="Timer" parent="."]
+wait_time = 1.25
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, -3.5)
+shape = SubResource("RectangleShape2D_obgar")
+
+[connection signal="timeout" from="EntranceTimer" to="." method="_on_entrance_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
