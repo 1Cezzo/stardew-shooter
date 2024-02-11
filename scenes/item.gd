@@ -17,8 +17,11 @@ func _ready():
 func _on_body_entered(body):
 	if item_type == 0:
 		body.boost()
+		queue_free()
 	elif item_type == 1:
 		main.lives += 1
+		queue_free()
 		lives_label.text = "X: " + str(main.lives)
 	elif item_type == 2:
 		body.quick_fire()
+		queue_free()
