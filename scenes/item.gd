@@ -1,5 +1,8 @@
 extends Area2D
 
+@onready var main = get_node("/root/Main")
+@onready var lives_label = get_node("/root/Main/HUD/LivesLabel")
+
 var item_type : int
 
 var yellow_potion = preload("res://assets/icons/PotionYellow.png")
@@ -11,7 +14,11 @@ var textures = [yellow_potion, red_potion, blue_potion]
 func _ready():
 	$Sprite2D.texture = textures[item_type]
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _on_body_entered(body):
+	if item_type == 0:
+		body.boost()
+	elif item_type == 1:
+		main.lives += 1
+		lives_label.text = "X: " + str(main.lives)
+	elif item_type == 2:
+		body.quick_fire()
