@@ -12,6 +12,7 @@ func _ready():
 	$HUD/LivesLabel.text = "X " + str(lives)
 	$HUD/WaveLabel.text = "WAVE: " + str(wave)
 	$HUD/EnemiesLabel.text = "X " + str(max_enemies)
+	$GameOver.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -21,3 +22,6 @@ func _on_enemy_spawner_hit_p():
 	lives -= 1
 	print("Hit player")
 	$HUD/LivesLabel.text = "X " + str(lives)
+	if lives <= 0:
+		get_tree().paused = true
+		$GameOver.show()
