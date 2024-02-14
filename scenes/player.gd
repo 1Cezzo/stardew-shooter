@@ -11,12 +11,15 @@ var can_shoot : bool
 var screen_size : Vector2
 
 func _ready():
+	screen_size = get_viewport_rect().size
+	reset()
+
+func reset():
 	speed = START_SPEED
 	$ShotTimer.wait_time = NORMAL_SHOT
-	screen_size = get_viewport_rect().size
 	position = screen_size / 2
 	can_shoot = true
-	
+
 func get_input():
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	velocity = input_dir.normalized() * speed
