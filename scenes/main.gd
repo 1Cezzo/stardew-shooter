@@ -28,6 +28,7 @@ func reset():
 	$HUD/WaveLabel.text = "WAVE: " + str(wave)
 	$HUD/EnemiesLabel.text = "X " + str(max_enemies)
 	$GameOver.hide()
+	$WaveSurvived.hide()
 	get_tree().paused = true
 	$RestartTimer.start()
 
@@ -38,8 +39,10 @@ func _process(_delta):
 		if $EnemySpawner/Timer.wait_time > 0.25:
 			$EnemySpawner/Timer.wait_time -= 0.05
 		get_tree().paused = true
+		var waves_survived = str(wave - 1)
+		$WaveSurvived/WaveSurvivedLabel.text = "YOU SURVIVED WAVE " + waves_survived + "!"
+		$WaveSurvived.show()
 		$WaveOverTimer.start()
-		
 
 func _on_enemy_spawner_hit_p():
 	lives -= 1

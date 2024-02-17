@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://1gwsrhgt0knw"]
+[gd_scene load_steps=10 format=3 uid="uid://1gwsrhgt0knw"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_hbxbj"]
 [ext_resource type="PackedScene" uid="uid://dvq7wr5pk4knn" path="res://scenes/world.tscn" id="1_qd3ti"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bdxhwlb5s7ba5" path="res://scenes/bullet.tscn" id="5_tov28"]
 [ext_resource type="PackedScene" uid="uid://ciswiem6ssk67" path="res://scenes/hud.tscn" id="7_upwyg"]
 [ext_resource type="PackedScene" uid="uid://dn4pptul7suub" path="res://scenes/game_over.tscn" id="8_uyywv"]
+[ext_resource type="PackedScene" uid="uid://btimwl8dvwqyb" path="res://scenes/wave_survived.tscn" id="9_8xkbh"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_hbxbj")
@@ -35,6 +36,9 @@ offset = Vector2(0, 768)
 transform = Transform2D(1, 0, 0, 1, 0, 768)
 
 [node name="GameOver" parent="." instance=ExtResource("8_uyywv")]
+process_mode = 2
+
+[node name="WaveSurvived" parent="." instance=ExtResource("9_8xkbh")]
 process_mode = 2
 
 [connection signal="shoot" from="Player" to="BulletManager" method="_on_player_shoot"]

@@ -35,7 +35,6 @@ func _physics_process(_delta):
 		direction = direction.normalized()
 		velocity = direction * speed
 		move_and_slide()
-
 		if velocity.x != 0:
 			$AnimatedSprite2D.flip_h = velocity.x < 0
 	else: 
